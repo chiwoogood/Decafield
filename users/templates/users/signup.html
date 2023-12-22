@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+</head>
+<body>
+    <div class="wrap">
+        <div class="signup">
+            <a href="{% url 'index:index' %}">
+                <img class="custom-image" src="{% static 'images/logo.png' %}" alt="logo" style="width: 200px; margin-bottom: 30px;">
+            </a>
+            <div class="login_id">
+                <h4>ID</h4>
+                <input type="email" name="" id="" placeholder="사용하실 아이디를 입력해주세요!">
+            </div>
+            <div class="login_pw">
+                <h4>Password</h4>
+                <input type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요!">
+            </div>
+            <div class="login_pw">
+                <h4>Confirm Password</h4>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="다시 한 번 비밀번호를 입력해주세요!">
+                <span id="password_match"></span>
+            </div>
+            <div class="login_pw">
+                <h4>Name</h4>
+                <input type="text" name="name" id="name" placeholder="성함을 입력해주세요!">
+            </div>
+            <div class="login_pw">
+                <h4>E-Mail</h4>
+                <input type="email" name="email" id="email" placeholder="이메일을 입력해주세요!">
+            </div>
+            <div class="login_pw">
+                <h4>Phone</h4>
+                <input type="text" name="phone" id="phone" placeholder="휴대폰 번호를 입력해주세요!">
+            </div>
+            <div class="submit">
+                <input type="submit" value="Submit">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const passwordMatchSpan = document.getElementById('password_match');
+
+            if (password === confirmPassword) {
+                passwordMatchSpan.textContent = '비밀번호가 일치합니다.';
+                passwordMatchSpan.style.color = 'green';
+            } else {
+                passwordMatchSpan.textContent = '비밀번호가 일치하지 않습니다.';
+                passwordMatchSpan.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
