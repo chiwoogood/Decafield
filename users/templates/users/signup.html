@@ -16,30 +16,44 @@
             <a href="{% url 'index:index' %}">
                 <img class="custom-image" src="{% static 'images/logo.png' %}" alt="logo" style="width: 200px; margin-bottom: 30px;">
             </a>
-            <div class="login_id">
+            <div class="join_form">
                 <h4>ID</h4>
                 <input type="email" name="" id="" placeholder="사용하실 아이디를 입력해주세요!">
             </div>
-            <div class="login_pw">
+            <div class="join_form">
                 <h4>Password</h4>
                 <input type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요!">
             </div>
-            <div class="login_pw">
+            <div class="join_form">
                 <h4>Confirm Password</h4>
                 <input type="password" name="confirm_password" id="confirm_password" placeholder="다시 한 번 비밀번호를 입력해주세요!">
                 <span id="password_match"></span>
             </div>
-            <div class="login_pw">
+            <div class="join_form">
                 <h4>Name</h4>
                 <input type="text" name="name" id="name" placeholder="성함을 입력해주세요!">
             </div>
-            <div class="login_pw">
+            <div class="join_form">
                 <h4>E-Mail</h4>
                 <input type="email" name="email" id="email" placeholder="이메일을 입력해주세요!">
             </div>
-            <div class="login_pw">
+            <div class="join_form">
                 <h4>Phone</h4>
                 <input type="text" name="phone" id="phone" placeholder="휴대폰 번호를 입력해주세요!">
+            </div>
+            <div class="join_form">      
+                <h3>Coffee Type</h4>
+                <br>
+                <div class="radio_group">
+                    <input type="radio" id="roasting" name="coffee_type" value="roasting">
+                    <label for="roasting">Roasting</label>
+                    <hr>
+                    <input type="radio" id="cold_brew" name="coffee_type" value="cold_brew">
+                    <label for="cold_brew">Cold Brew</label>
+                    <hr>
+                    <input type="radio" id="like_both" name="coffee_type" value="like_both">
+                    <label for="like_both">Like Both</label>
+                </div>
             </div>
             <div class="submit">
                 <input type="submit" value="Submit">
