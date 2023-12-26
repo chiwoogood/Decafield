@@ -12,13 +12,15 @@
 </head>
 <body>
     <div class="wrap">
-        <div class="signup">
+        <form class="signup" action="{% url 'users:signup' %}" method="post">
+            {% csrf_token %}
             <a href="{% url 'index:index' %}">
-                <img class="custom-image" src="{% static 'images/logo.png' %}" alt="logo" style="width: 200px; margin-bottom: 30px;">
-            </a>
+                <img class="custom-image" src="{% static 'images/logo.png' %}" alt="logo" style="width: 200px;">
+            </a>  
             <div class="join_form">
                 <h4>ID</h4>
-                <input type="email" name="" id="" placeholder="사용하실 아이디를 입력해주세요!">
+                <input type="text" name="username" id="username" placeholder="사용하실 아이디를 입력해주세요!">
+                <span id="username-message"></span>
             </div>
             <div class="join_form">
                 <h4>Password</h4>
@@ -36,13 +38,14 @@
             <div class="join_form">
                 <h4>E-Mail</h4>
                 <input type="email" name="email" id="email" placeholder="이메일을 입력해주세요!">
+                <span id="error-message"></span>
             </div>
             <div class="join_form">
                 <h4>Phone</h4>
                 <input type="text" name="phone" id="phone" placeholder="휴대폰 번호를 입력해주세요!">
             </div>
             <div class="join_form">      
-                <h3>Coffee Type</h4>
+                <h3>Coffee Type</h3>
                 <br>
                 <div class="radio_group">
                     <input type="radio" id="roasting" name="coffee_type" value="roasting">
@@ -58,23 +61,60 @@
             <div class="submit">
                 <input type="submit" value="Submit">
             </div>
-        </div>
+        </form>
     </div>
+    
 
     <script>
+        function checkUsernameAvailability() {
+            var usernameInput = $('#username').val();
+            var usernameCheckUrl = "{% url 'users:username_check' %}";
+
+            // Ajax 요청
+            $.ajax({
+                type: 'POST',
+                url: usernameCheckUrl, // 실제 서버 경로로 수정해야 합니다.
+                data: { username: usernameInput },
+                success: function(response) {
+                    if (response === 'available') {
+                        $('#username-message').text('');
+                    } else {
+                        $('#username-message').text('중복된 ID입니다.').css('color', 'red');
+                    }
+                },
+                error: function() {
+                    console.error('서버 오류');
+                }
+            });
+        }
         document.getElementById('confirm_password').addEventListener('input', function() {
             const password = document.getElementById('password').value;
             const confirmPassword = this.value;
             const passwordMatchSpan = document.getElementById('password_match');
 
             if (password === confirmPassword) {
-                passwordMatchSpan.textContent = '비밀번호가 일치합니다.';
-                passwordMatchSpan.style.color = 'green';
+                passwordMatchSpan.textContent = '';
             } else {
                 passwordMatchSpan.textContent = '비밀번호가 일치하지 않습니다.';
                 passwordMatchSpan.style.color = 'red';
             }
         });
+
+        document.getElementById('email').addEventListener('input', validateEmail);
+        function validateEmail() {
+        var emailInput = document.getElementById('email');
+        var errorMessage = document.getElementById('error-message');
+        
+        // 이메일 형식 검사 정규식
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if (emailPattern.test(emailInput.value)) {
+            errorMessage.innerHTML = ''; // 형식이 맞으면 에러 메시지 제거
+        } else {
+            errorMessage.innerHTML = '올바른 이메일 형식이 아닙니다.'; // 형식이 아니면 에러 메시지 표시
+            errorMessage.style.color = 'red';
+        }}
+    
     </script>
 </body>
 </html>

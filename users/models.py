@@ -1,11 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from allauth.socialaccount.models import SocialAccount
 
 class CustomUser(AbstractUser):
-    phone = models.CharField(max_length=11, blank=True, null=True)
-    nickname = models.CharField(max_length=9, blank=True, null=True)
-    email = models.EmailField(unique=True, blank=True, null=True)
-    coffee_type = models.CharField(max_length=20, blank=True, null=True)
+    # 추가 필드 정의
+    name = models.CharField(max_length=15, default='', null=True, verbose_name='이름')
+    email = models.EmailField(max_length=50, unique=True, blank=True, null=True, default='temp@email.com')
+    phone = models.CharField(max_length=11, default='', null=True, verbose_name='휴대폰번호')
+    coffee_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='좋아하는 커피타입')
+    
+    # 추가 필드를 원하는 대로 확장할 수 있습니다.
 
     def __str__(self):
         return self.username
