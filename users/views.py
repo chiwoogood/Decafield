@@ -1,5 +1,3 @@
-# users/views.py
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -8,6 +6,7 @@ from .models import CustomUser
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .forms import CustomUserCreationForm
+
 
 from allauth.socialaccount.providers.kakao.views import KakaoOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
@@ -24,7 +23,7 @@ def signup(request):
             user = form.save()
             username = user.username
             messages.success(request, f'Account created for {username}!')
-            return redirect('login')
+            return redirect('users:login')
     else:
         form = CustomUserCreationForm()
     return render(request, 'users/signup.html', {'form': form})
