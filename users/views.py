@@ -52,24 +52,27 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        print(f"Authenticated user: {user}")
+        print("뭐라도 떠라")
         if user is not None:
             auth_login(request, user)
             messages.success(request, 'Login successful!')
             return redirect('index:index')
         else:
-            messages.error(request, 'Login failed. Please check your username and password.')
+            return redirect('users:login')
     return render(request, 'users/login.html')
+
 
 
 @login_required
 def logout(request):
     auth_logout(request)
     messages.success(request, 'Logout successful!')
-    return redirect('login')
+    return redirect('index:index')
 
-@login_required
-def profile(request):
-    return render(request, 'profile.html')
+# @login_required
+# def profile(request):
+#     return render(request, 'profile.html')
 
 def social_login(request):
     return render(request, 'social_login.html')
@@ -87,3 +90,7 @@ class CustomLoginView(LoginView):
         context = super().get_context_data(**kwargs)
         # 추가적인 컨텍스트 변수가 필요하다면 여기에 추가
         return context
+    
+
+def update(request):
+    pass

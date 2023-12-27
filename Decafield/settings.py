@@ -164,3 +164,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_CHARSET = 'utf-8'
+
+
+LOGIN_REDIRECT_URL = 'index:index'

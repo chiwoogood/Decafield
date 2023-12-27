@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="wrap">
-        <form class="login" action="{% url 'index:index' %}" method="post">
+        <form class="login" action="{% url 'users:login' %}" method="post">
             {% csrf_token %}
             <a href="{% url 'index:index' %}"><img class="custom-image" src="{% static 'images/logo.png' %}" alt="logo" style="width: 200px; margin-bottom: 30px;"></a>
             <div class="login_id">
@@ -24,14 +24,11 @@
                 <input type="password" name="password" id="" placeholder="비밀번호를 입력해주세요!">
             </div>
             <div class="login_etc">
-                <div class="checkbox">
-                <input type="checkbox" name="" id="" form=""> Remember Me?
-                </div>
+                <a href="{% url 'users:signup' %}">Join us</a>
                 <div class="forgot_pw">
                 <a href="{% url 'users:forgot' %}">Forgot Password?</a>
             </div>
             </div>
-            <div class="login_etca"><a href="{% url 'users:signup' %}">Join us</a></div>
             <div class="login_sns">
                 <li><a href=""><i class="fab fa-instagram"></i></a></li>
                 <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
