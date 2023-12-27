@@ -55,7 +55,7 @@ def login(request):
         if user is not None:
             auth_login(request, user)
             messages.success(request, 'Login successful!')
-            return redirect('users:profile')
+            return redirect('index:index')
         else:
             messages.error(request, 'Login failed. Please check your username and password.')
     return render(request, 'users/login.html')
