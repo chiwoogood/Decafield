@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'index',
     'users',
+    'django_extensions',
     'allauth', #allauth의 위치는 django.contrib.auth보다 앞에 있어야한다. 순서중요
     'allauth.account',
     'allauth.socialaccount',
@@ -161,3 +162,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_CHARSET = 'utf-8'

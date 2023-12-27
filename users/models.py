@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     phone = models.CharField(max_length=11, default='', null=True, verbose_name='휴대폰번호')
     coffee_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='좋아하는 커피타입')
     
-    # 추가 필드를 원하는 대로 확장할 수 있습니다.
 
     def __str__(self):
         return self.username
+    

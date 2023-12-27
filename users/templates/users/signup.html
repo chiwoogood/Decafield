@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+    
 </head>
 <body>
     <div class="wrap">
@@ -24,11 +25,12 @@
             </div>
             <div class="join_form">
                 <h4>Password</h4>
-                <input type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요!">
+                <input type="password" name="password1" id="id_password1" placeholder="비밀번호를 입력해주세요!">
+                <span id="password_length"></span>
             </div>
             <div class="join_form">
                 <h4>Confirm Password</h4>
-                <input type="password" name="confirm_password" id="confirm_password" placeholder="다시 한 번 비밀번호를 입력해주세요!">
+                <input type="password" name="password2" id="id_password2" placeholder="다시 한 번 비밀번호를 입력해주세요!">
                 <span id="password_match"></span>
             </div>
             <div class="join_form">
@@ -63,45 +65,51 @@
             </div>
         </form>
     </div>
-    
 
-    <script>
-        function checkUsernameAvailability() {
-            var usernameInput = $('#username').val();
-            var usernameCheckUrl = "{% url 'users:username_check' %}";
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    document.getElementById('username').addEventListener('input', checkUsernameAvailability);
 
-            // Ajax 요청
-            $.ajax({
-                type: 'POST',
-                url: usernameCheckUrl, // 실제 서버 경로로 수정해야 합니다.
-                data: { username: usernameInput },
-                success: function(response) {
-                    if (response === 'available') {
-                        $('#username-message').text('');
-                    } else {
-                        $('#username-message').text('중복된 ID입니다.').css('color', 'red');
-                    }
-                },
-                error: function() {
-                    console.error('서버 오류');
+    function checkUsernameAvailability() {
+        var usernameInput = $('#username').val();
+        var usernameCheckUrl = "{% url 'users:username_check' %}";
+
+        // Ajax 요청
+        $.ajax({
+            type: 'POST',
+            url: usernameCheckUrl,
+            data: { username: usernameInput },
+            success: function(response) {
+                if (response.status === 'unavailable') {
+                    $('#username-message').text('중복된 ID입니다.').css('color', 'red');
+                } else if (response.status === 'available') {
+                    $('#username-message').text('').css('color', 'green');
+                } else {
+                    console.error('예상치 못한 응답:', response);
                 }
-            });
-        }
-        document.getElementById('confirm_password').addEventListener('input', function() {
-            const password = document.getElementById('password').value;
-            const confirmPassword = this.value;
-            const passwordMatchSpan = document.getElementById('password_match');
-
-            if (password === confirmPassword) {
-                passwordMatchSpan.textContent = '';
-            } else {
-                passwordMatchSpan.textContent = '비밀번호가 일치하지 않습니다.';
-                passwordMatchSpan.style.color = 'red';
+            },
+            error: function() {
+                console.error('서버 오류');
             }
         });
+    }
 
-        document.getElementById('email').addEventListener('input', validateEmail);
-        function validateEmail() {
+
+    document.getElementById('confirm_password').addEventListener('input', function() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = this.value;
+        const passwordMatchSpan = document.getElementById('password_match');
+
+        if (password === confirmPassword) {
+            passwordMatchSpan.textContent = '';
+        } else {
+            passwordMatchSpan.textContent = '비밀번호가 일치하지 않습니다.';
+            passwordMatchSpan.style.color = 'red';
+        }
+    });
+
+    document.getElementById('email').addEventListener('input', validateEmail);
+    function validateEmail() {
         var emailInput = document.getElementById('email');
         var errorMessage = document.getElementById('error-message');
         
@@ -113,8 +121,23 @@
         } else {
             errorMessage.innerHTML = '올바른 이메일 형식이 아닙니다.'; // 형식이 아니면 에러 메시지 표시
             errorMessage.style.color = 'red';
-        }}
-    
-    </script>
+        }
+    }
+
+    document.getElementById('password').addEventListener('input', validatePassword);
+
+    function validatePassword() {
+        var passwordInput = document.getElementById('password');
+        var errorMessage = document.getElementById('password_length');
+
+        if (passwordInput.value.length >= 8) {
+            errorMessage.innerHTML = ''; // 8자리 이상이면 에러 메시지 제거
+        } else {
+            errorMessage.innerHTML = '비밀번호는 8자리 이상이어야 합니다.'; // 8자리 미만이면 에러 메시지 표시
+            errorMessage.style.color = 'red';
+        }
+    }
+</script>
+
 </body>
 </html>
