@@ -116,7 +116,7 @@ input, select, textarea {
 	}
 
 		a:hover {
-			color: #e44c65 !important;
+			color: pink !important;
 			border-bottom-color: transparent;
 		}
 
@@ -2898,9 +2898,9 @@ input, select, textarea {
 		input[type="reset"].primary,
 		input[type="button"].primary,
 		.button.primary {
-			background-color: white;
+			background-color: pink;
 			box-shadow: none;
-			color: #ffffff !important;
+			color: pink !important;
 		}
 
 			input[type="submit"].primary:hover,
@@ -2926,7 +2926,7 @@ input, select, textarea {
 		.button:disabled {
 			background-color: rgba(255, 255, 255, 0.3) !important;
 			box-shadow: none !important;
-			color: #ffffff !important;
+			color: pink !important;
 			cursor: default;
 			opacity: 0.25;
 		}
