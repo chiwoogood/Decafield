@@ -5,3 +5,6 @@ from django.shortcuts import render, redirect
 def index(request):
 
     return render(request,'index/index.html')
+
+def temp(request):
+    return render(request,'index/temp.html')

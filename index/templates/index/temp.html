@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD07zj4B6-0Ntj-klABYUUm8poVpzlfg5E&libraries=places&callback=initMap"></script>
+</head>
+<body>
+    <div style="height: 300px; width: 300px;"id="map"></div>
+    <script>
+        function initMap() {
+            // HTML5 Geolocation API를 사용하여 사용자의 현재 위치를 가져옵니다.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+        
+                        // 사용자의 현재 위치를 이용해 지도를 초기화합니다.
+                        const map = new google.maps.Map(document.getElementById("map"), {
+                            center: userLocation,
+                            zoom: 15
+                        });
+        
+                        // 사용자의 현재 위치에 마커를 추가합니다.
+                        new google.maps.Marker({
+                            position: userLocation,
+                            map: map,
+                            title: "Your Location"
+                        });
+        
+                        // 콘솔에 사용자 위치 로그 출력
+                        console.log("User Location:", userLocation);
+                    },
+                    (error) => {
+                        console.error("Error getting user location:", error);
+                    }
+                );
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</body>
+</html>
