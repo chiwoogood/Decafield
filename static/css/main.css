@@ -3513,10 +3513,10 @@ input, select, textarea {
 			#banner .content .image {
 				border-radius: 100%;
 				display: inline-block;
-				height: 18em;
+				height: 23em;
 				margin-left: 3em;
 				vertical-align: middle;
-				width: 18em;
+				width: 23em;
 			}
 
 				#banner .content .image img {
@@ -3524,6 +3524,8 @@ input, select, textarea {
 					display: block;
 					width: 100%;
 				}
+
+
 
 	body.is-touch #banner {
 		background-attachment: scroll;

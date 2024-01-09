@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
 		<noscript><link rel="stylesheet" href="{% static 'css/noscript.css' %}" /></noscript>
 
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD07zj4B6-0Ntj-klABYUUm8poVpzlfg5E&libraries=places&callback=initMap"></script>
+		
 	</head>
 
 	<body class="is-preload landing">
@@ -15,7 +15,7 @@
 
 			<!-- Header -->
 			<header id="header">
-				<h1 id="logo"><a href="index.html">Landed</a></h1>
+				<h1 id="logo"><a href="index.html">Launch</a></h1>
 				<nav id="nav">
 					<ul>
 						<li><a href="index.html">home</a></li>
@@ -39,9 +39,9 @@
 						</li>
 						<li><a href="elements.html"></a></li>
 					{% if user.is_authenticated %}
-						<li><a href="{% url 'users:logout' %}" class="button primary">Log out</a></li>
+						<li><a style="background-color: pink;" href="{% url 'users:logout' %}" class="button primary">Log out</a></li>
 					{% else %}
-						<li><a href="{% url 'users:login' %}" class="button primary">Log in</a></li>
+						<li><a style="background-color: pink;" href="{% url 'users:login' %}" class="button primary">Log in</a></li>
 					{% endif %}
 					</ul>
 				</nav>
@@ -54,7 +54,13 @@
 						<header>
 							<h2>DecaFiled</h2>
 							<!-- 거리가 가까운 순으로 출력하기 -->
-							<div>{}</div>
+							<div>
+								{% if user.is_authenticated %}
+								<p>{{ user.name }}님 안녕하세요! </p>
+								{% else %}
+
+								{% endif %}
+							</div>
 							<!-- 거리가 가까운 순으로 출력하기 끝 -->
 						</header>
 						<!-- <span class="image"></span> -->
@@ -255,7 +261,9 @@
 				} else {
 					console.error("Geolocation is not supported by this browser.");
 				}
+				
 			}
 		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap"></script>
 	</body>
 </html>
